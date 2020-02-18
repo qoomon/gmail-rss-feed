@@ -113,3 +113,14 @@ function rssToXml(rssObject) {
   }))
   return xml
 }
+
+function debug() {
+  var event = {
+    parameter: {
+      'gmail-rss-feed': 'Newsletter',
+      'multi-account': 'true'
+    }
+  }
+  var response = doGet(event)
+  Logger.log(response)
+}
