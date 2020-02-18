@@ -122,5 +122,7 @@ function debug() {
     }
   }
   var response = doGet(event)
-  Logger.log(response)
+  Logger.log('-------------------------------')
+  Logger.log(response.getMimeType())
+  Logger.log(response.getContent())
 }
