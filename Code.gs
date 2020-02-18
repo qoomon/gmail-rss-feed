@@ -3,15 +3,22 @@ var rssFeedMaxItems = 50
 
 // --------------- entrypoint ---------------------
 function doGet(event) {
-  
-  Logger.log(event)
+  Logger.log("[EVENT]")
+  Logger.log('Parameters:', event.parameter)
+  var response = _doGet(event)
+  Logger.log('[RESPONSE]')
+  Logger.log('MimeType:', response.getMimeType())
+  Logger.log('Content...')
+  Logger.log(response.getContent())
+  return response
+}
 
+function _doGet(event) {
   // --------------- input parameters---------------------
 
   var rssFeedName = event.parameter['gmail-rss-feed']
   if (!rssFeedName) {
-    Logger.log("! 400 - 'feed' parameter missing")
-    return ContentService.createTextOutput("! 400 - 'feed' parameter missing")
+    return ContentService.createTextOutput("400 - 'feed' parameter missing")
   }
 
   var isMultiAuthor = ['', 'true'].includes(event.parameter['multi-author'])
@@ -21,8 +28,7 @@ function doGet(event) {
   var gmailLabelName = 'RSS/' + rssFeedName
   var gmailLabel = GmailApp.getUserLabelByName(gmailLabelName)
   if (!gmailLabel) {
-    Logger.log("! 400 - 'feed' not found")
-    return ContentService.createTextOutput("! 400 - 'feed' not found")
+    return ContentService.createTextOutput("400 - 'feed' not found")
   }
   var threads = gmailLabel.getThreads(0, rssFeedMaxItems)
 
@@ -70,6 +76,7 @@ function xmlElement(name, modifier) {
   return element
 }
 
+
 function rssToXml(rssObject) {
   var xml = XmlService.parse("<rss xmlns:atom='http://www.w3.org/2005/Atom' version='2.0'/>")
   var rss = xml.getRootElement()
@@ -114,15 +121,11 @@ function rssToXml(rssObject) {
   return xml
 }
 
-function debug() {
-  var event = {
+function doGetDebug() {
+  doGet({
     parameter: {
       'gmail-rss-feed': 'Newsletter',
       'multi-account': 'true'
     }
-  }
-  var response = doGet(event)
-  Logger.log('-------------------------------')
-  Logger.log(response.getMimeType())
-  Logger.log(response.getContent())
+  })
 }
