@@ -1,6 +1,9 @@
+// --------------- config ---------------------
 var rssFeedMaxItems = 50
 
+// --------------- entrypoint ---------------------
 function doGet(event) {
+  
   Logger.log(event)
 
   // --------------- input parameters---------------------
