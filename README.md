@@ -1,5 +1,5 @@
 # gmail-rss-feed
-[Google Scripts](https://script.google.com) Project to generate a RSS feed based on labeled emails
+[Google Scripts](https://script.google.com) Web App to dynamicaly generate a RSS feed based on labeled emails
 
 
 ### Installation
@@ -17,6 +17,6 @@
   * `gmail-rss-feed=<RSS_FEED_NAME>` select rss feed name of coresponding Gmail label `RSS/<RSS_FEED_NAME>`
   * `multi-author` add this optional parameter, if your rss feed is based on multible sources
   * e.g. `https://script.google.com/macros/s/<SCRIPT_ID>/exec?gmail-rss-feed=Newsletter&multi-author`
-    * This URL generates a RSS feed out of all mails labeled with `RSS/Newsletter`
+    * This URL generates a RSS feed, of all mails labeled with `RSS/Newsletter`
   
 
