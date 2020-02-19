@@ -61,14 +61,14 @@ function doGetRssFeedXml(event) {
   }
 
   const rssFeedXmlElement = createRssFeedXmlElement(rssFeed)
-  const rssFeedXmlDocument = XmlService.createDocument(rssFeedXml)
+  const rssFeedXmlDocument = XmlService.createDocument(rssFeedXmlElement)
   const rssFeedXmlText = XmlService.getPrettyFormat().format(rssFeedXmlDocument)
   return ContentService.createTextOutput(rssFeedXmlText)
     .setMimeType(ContentService.MimeType.RSS)
 }
 
 function createRssFeedXmlElement(rssObject) {
-  const rss = XmlService.parse("<rss xmlns:atom='http://www.w3.org/2005/Atom' version='2.0'/>").getRootElement()
+  const rss = XmlService.parse("<rss xmlns:atom='http://www.w3.org/2005/Atom' version='2.0'/>").detachRootElement()
   return rss.addContent(xmlElement('channel', channel => {
     channel.addContent(xmlElement('title').setText(rssObject.title))
     channel.addContent(xmlElement('description').setText(rssObject.description))
