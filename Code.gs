@@ -1,5 +1,13 @@
+var scriptProperties = PropertiesService.getScriptProperties()
+
 // --------------- config ---------------------
+var rssFeedGmailRootLabel = 'RSS'
 var rssFeedMaxItems = 50
+var apiKeys = undefined
+var apiKeysScriptProperty = scriptProperties.getProperty('API_KEYS')
+if(apiKeysScriptProperty){
+  apiKeys = apiKeysScriptProperty.split(/\s*,\s*/)
+}
 
 // --------------- entrypoint ---------------------
 function doGet(event) {
@@ -15,6 +23,12 @@ function doGet(event) {
 
 function _doGet(event) {
   // --------------- input parameters---------------------
+  if (apiKeys) {
+    var apiKey = event.parameter['api-key']
+    if (!apiKeys.includes(apiKey)) {
+      return ContentService.createTextOutput("403 - invalid API key")
+    }
+  }
 
   var rssFeedName = event.parameter['gmail-rss-feed']
   if (!rssFeedName) {
@@ -25,7 +39,7 @@ function _doGet(event) {
 
   // --------------- gather rss mails---------------------
 
-  var gmailLabelName = 'RSS/' + rssFeedName
+  var gmailLabelName = `${rssFeedGmailRootLabel}/${rssFeedName}`
   var gmailLabel = GmailApp.getUserLabelByName(gmailLabelName)
   if (!gmailLabel) {
     return ContentService.createTextOutput("400 - 'feed' not found")
