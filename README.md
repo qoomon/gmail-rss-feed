@@ -1,6 +1,5 @@
 # Gmail RSS Feed
-A [Google Scripts](https://script.google.com) Web App to dynamicaly generate a RSS feed based on labeled emails
-
+A [Google Scripts](https://script.google.com) Web App to dynamicaly generate an RSS feed based on labeled emails (`RSS/<RSS_FEED_NAME>`)
 
 ### Installation
 * Create a blank project on https://script.google.com/
@@ -13,10 +12,12 @@ A [Google Scripts](https://script.google.com) Web App to dynamicaly generate a R
   * Select `Execute the app as : me`
   * Select `Who has access to the app : Anonyone, even anonymous`
   * Copy `Current web app URL` e.g. `https://script.google.com/macros/s/<SCRIPT_ID>/exec`
+  * ⚠️ Everyone with this URL is potentialy able to read all mails labled with `RSS/<RSS_FEED_NAME>`
+* Label your first emails with a nested `RSS` label (`RSS/<RSS_FEED_NAME>`) e.g. `RSS/Newsletter`
 * Create your feed URL by add following query parameters to `Current web app URL`
-  * `gmail-rss-feed=<RSS_FEED_NAME>` select rss feed name of coresponding Gmail label `RSS/<RSS_FEED_NAME>`
-  * `multi-author` add this optional parameter, if your rss feed is based on multible sources
+  * `gmail-rss-feed=<RSS_FEED_NAME>` selects rss feed name of coresponding Gmail label (`RSS/<RSS_FEED_NAME>`)
+  * `multi-author=true` prepands author to feed item titles
   * e.g. `https://script.google.com/macros/s/<SCRIPT_ID>/exec?gmail-rss-feed=Newsletter&multi-author`
-    * This URL generates a RSS feed, of all mails labeled with `RSS/Newsletter`
+    * This URL points to an RSS feed of all your mails labeled with `RSS/Newsletter`
   
 
