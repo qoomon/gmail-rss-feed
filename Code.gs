@@ -38,11 +38,8 @@ function _doGet(event) {
   // --------------- create rss feed ---------------------
 
   var rssDescription = `${rssFeedName} - Gmail RSS Feed`
-  if (!rssTitle) {
-   rssTitle = rssDescription
-  }
   var rss = {
-    title: rssTitle,
+    title: rssTitle || rssDescription,
     description: rssDescription,
     link: `https://mail.google.com/#label/${gmailLabelName}`,
     image: 'https://ssl.gstatic.com/ui/v1/icons/mail/favicon.ico',
