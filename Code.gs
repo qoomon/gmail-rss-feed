@@ -8,7 +8,7 @@ const rssFeedMaxItems = 50
 function doGet(event) {
   Logger.log("[EVENT]")
   Logger.log('Parameters:', event.parameter)
-  const response = doGetRssFeedXml(event)
+  const response = doGetRssFeedXml_(event)
   Logger.log('[RESPONSE]')
   Logger.log('MimeType:', response.getMimeType())
   Logger.log('Content...')
@@ -16,7 +16,7 @@ function doGet(event) {
   return response
 }
 
-function doGetRssFeedXml(event) {
+function doGetRssFeedXml_(event) {
   // --------------- input parameters---------------------
 
   const rssFeedName = event.parameter['gmail-rss-feed']
@@ -60,24 +60,24 @@ function doGetRssFeedXml(event) {
     })
   }
 
-  const rssFeedXmlElement = createRssFeedXmlElement(rssFeed)
+  const rssFeedXmlElement = createRssFeedXmlElement_(rssFeed)
   const rssFeedXmlDocument = XmlService.createDocument(rssFeedXmlElement)
   const rssFeedXmlText = XmlService.getPrettyFormat().format(rssFeedXmlDocument)
   return ContentService.createTextOutput(rssFeedXmlText)
     .setMimeType(ContentService.MimeType.RSS)
 }
 
-function createRssFeedXmlElement(rssObject) {
+function createRssFeedXmlElement_(rssObject) {
   const rss = XmlService.parse("<rss xmlns:atom='http://www.w3.org/2005/Atom' version='2.0'/>").detachRootElement()
-  return rss.addContent(xmlElement('channel', channel => {
-    channel.addContent(xmlElement('title').setText(rssObject.title))
-    channel.addContent(xmlElement('description').setText(rssObject.description))
-    channel.addContent(xmlElement('link').setText(rssObject.link))
+  return rss.addContent(xmlElement_('channel', channel => {
+    channel.addContent(xmlElement_('title').setText(rssObject.title))
+    channel.addContent(xmlElement_('description').setText(rssObject.description))
+    channel.addContent(xmlElement_('link').setText(rssObject.link))
     if (rssObject.image) {
-      channel.addContent(xmlElement('image')
-        .addContent(xmlElement('url').setText(rssObject.image))
-        .addContent(xmlElement('title').setText(rssObject.title))
-        .addContent(xmlElement('link').setText(rssObject.link)))
+      channel.addContent(xmlElement_('image')
+        .addContent(xmlElement_('url').setText(rssObject.image))
+        .addContent(xmlElement_('title').setText(rssObject.title))
+        .addContent(xmlElement_('link').setText(rssObject.link)))
     }
     if (rssObject.atomLink) {
       channel.addContent(XmlService.createElement('link')
@@ -87,31 +87,31 @@ function createRssFeedXmlElement(rssObject) {
         .setAttribute('type', 'application/rss+xml'))
     }
     rssObject.items.forEach(itemObject => {
-      channel.addContent(createRssFeedItemXmlElement(itemObject))
+      channel.addContent(createRssFeedItemXmlElement_(itemObject))
     })
   }))
 }
 
-function createRssFeedItemXmlElement(itemObject) {
-  return xmlElement('item', item => {
-    item.addContent(xmlElement('title').setText(itemObject.title))
-    item.addContent(xmlElement('link').setText(itemObject.link))
-    item.addContent(xmlElement('description')
+function createRssFeedItemXmlElement_(itemObject) {
+  return xmlElement_('item', item => {
+    item.addContent(xmlElement_('title').setText(itemObject.title))
+    item.addContent(xmlElement_('link').setText(itemObject.link))
+    item.addContent(xmlElement_('description')
       .addContent(XmlService.createCdata(itemObject.description)))
     if (itemObject.pubDate) {
-      item.addContent(xmlElement('pubDate')
+      item.addContent(xmlElement_('pubDate')
         .setText(Utilities.formatDate(itemObject.pubDate, 'UTC', "EEE, dd MMM yyyy HH:mm:ss Z")))
     }
     if (itemObject.guid) {
-      item.addContent(xmlElement('guid').setText(itemObject.guid))
+      item.addContent(xmlElement_('guid').setText(itemObject.guid))
     }
     if (itemObject.author) {
-      item.addContent(xmlElement('author').setText(itemObject.author))
+      item.addContent(xmlElement_('author').setText(itemObject.author))
     }
   })
 }
 
-function xmlElement(name, modifier) {
+function xmlElement_(name, modifier) {
   const element = XmlService.createElement(name)
   if (modifier) {
     modifier(element)
@@ -119,7 +119,7 @@ function xmlElement(name, modifier) {
   return element
 }
 
-function debug_doGet() {
+function doGet_sample_event() {
   doGet({
     parameter: {
       'gmail-rss-feed': 'Newsletter',
