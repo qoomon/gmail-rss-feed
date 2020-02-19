@@ -1,13 +1,6 @@
-var scriptProperties = PropertiesService.getScriptProperties()
-
 // --------------- config ---------------------
 var rssFeedGmailRootLabel = 'RSS'
 var rssFeedMaxItems = 50
-var apiKeys = undefined
-var apiKeysScriptProperty = scriptProperties.getProperty('API_KEYS')
-if(apiKeysScriptProperty){
-  apiKeys = apiKeysScriptProperty.split(/\s*,\s*/)
-}
 
 // --------------- entrypoint ---------------------
 function doGet(event) {
@@ -23,19 +16,15 @@ function doGet(event) {
 
 function _doGet(event) {
   // --------------- input parameters---------------------
-  if (apiKeys) {
-    var apiKey = event.parameter['api-key']
-    if (!apiKeys.includes(apiKey)) {
-      return ContentService.createTextOutput("403 - invalid API key")
-    }
-  }
-
+  
   var rssFeedName = event.parameter['gmail-rss-feed']
   if (!rssFeedName) {
     return ContentService.createTextOutput("400 - 'feed' parameter missing")
   }
 
   var isMultiAuthor = ['', 'true'].includes(event.parameter['multi-author'])
+  
+  var rssTitle = event.parameter.title
 
   // --------------- gather rss mails---------------------
 
@@ -49,7 +38,9 @@ function _doGet(event) {
   // --------------- create rss feed ---------------------
 
   var rssDescription = `${rssFeedName} - Gmail RSS Feed`
-  var rssTitle = event.parameter.title || rssDescription
+  if (!rssTitle) {
+   rssTitle = rssDescription
+  }
   var rss = {
     title: rssTitle,
     description: rssDescription,
