@@ -1,4 +1,4 @@
-# gmail-rss-feed
+# Gmail RSS Feed
 [Google Scripts](https://script.google.com) Web App to dynamicaly generate a RSS feed based on labeled emails
 
 
