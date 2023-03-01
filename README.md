@@ -16,8 +16,5 @@ A [Google Scripts](https://script.google.com) Web App to dynamicaly generate an 
 * Label your first emails with a nested `RSS` label (`RSS/<RSS_FEED_NAME>`) e.g. `RSS/Newsletter`
 * Create your feed URL by add following query parameters to `Current web app URL`
   * `gmail-rss-feed=<RSS_FEED_NAME>` selects rss feed name of coresponding Gmail label (`RSS/<RSS_FEED_NAME>`)
-  * `multi-author=true` prepands author to feed item titles
-  * e.g. `https://script.google.com/macros/s/<SCRIPT_ID>/exec?gmail-rss-feed=Newsletter&multi-author`
-    * This URL points to an RSS feed of all your mails labeled with `RSS/Newsletter`
-  
-
+  * `multi-author=true` query parameter prepends the author name to feed item titles
+  * Example URL `https://script.google.com/macros/s/<SCRIPT_ID>/exec?gmail-rss-feed=Newsletter&multi-author`
