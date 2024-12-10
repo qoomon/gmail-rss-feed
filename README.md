@@ -3,7 +3,7 @@ A [Google Scripts](https://script.google.com) Web App to dynamicaly generate an 
 
 ### Installation
 * Create a blank project on https://script.google.com/
-* Copy content `Code.gs` into your new project
+* Copy content of [`Code.gs`](Code.gs) into your new project
 * Run the script once by clicking Menu `Run > doGet` 
   * You will be asked to grant this script access to your Gmail account
   * Accept the request
