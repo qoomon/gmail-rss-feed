@@ -3,7 +3,7 @@
 
 const {doGet} = (() => {
   // --------------- config ---------------------
-  const rssFeedGmailRootLabel = 'RSS'
+  const rssFeedGmailRootLabel = 'RSS Feed'
   const rssFeedMaxItems = 50
   
   // --------------- entrypoint ---------------------
